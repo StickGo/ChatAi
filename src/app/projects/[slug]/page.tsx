@@ -7,8 +7,11 @@ import { ArrowLeft, CheckCircle, AlertTriangle } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 import ChatWidget from "@/components/ChatWidget";
 
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
-  const project = PORTFOLIO_DATA.projects.find((p) => p.slug === params.slug);
+import { use } from "react";
+
+export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const project = PORTFOLIO_DATA.projects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();

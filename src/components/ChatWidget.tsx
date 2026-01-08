@@ -26,13 +26,15 @@ interface Message {
   sender: 'user' | 'bot'
   timestamp: Date
   feedback?: 'like' | 'unlike'
+  image?: string
+  imagePrompt?: string
 }
 
 const CHAT_STARTERS = [
+  { label: 'Generate Gambar 🎨', text: 'Buatkan gambar kucing astronot bergaya digital art' },
   { label: 'Band Favorit 🎸', text: 'Apa saja top 3 band favoritnya Agil? Ceritakan dong!' },
   { label: 'Lihat Proyek 🎨', text: 'Ceritakan tentang proyek-proyek seru yang pernah Agil kerjakan!' },
-  { label: 'Skill Agil 💻', text: 'Apa saja teknologi dan bahasa pemrograman yang dikuasai Agil?' },
-  { label: 'Hubungi Agil 📧', text: 'Bagaimana cara terbaik untuk menghubungi Agil untuk kolaborasi?' }
+  { label: 'Skill Agil 💻', text: 'Apa saja teknologi dan bahasa pemrograman yang dikuasai Agil?' }
 ]
 
 export default function ChatWidget() {
@@ -40,6 +42,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -114,7 +117,11 @@ export default function ChatWidget() {
 
       const data = await response.json()
       if (!response.ok) throw new Error(data.error || 'Gagal tersambung ke AI')
-      return data.message
+      return {
+        message: data.message,
+        image: data.image || null,
+        imagePrompt: data.imagePrompt || null
+      }
     } catch (error) {
       console.error('AI Error:', error)
       throw error
@@ -134,10 +141,14 @@ export default function ChatWidget() {
       timestamp: new Date(),
     }
     setMessages(prev => [...prev, userMsg])
+
+    const isImgReq = /buatkan|gambar|generate|lukis|image/i.test(textToSend)
+    setIsGeneratingImage(isImgReq)
     setIsTyping(true)
 
     try {
-      const aiResponse = await sendMessageToAI(textToSend)
+      const aiData = await sendMessageToAI(textToSend)
+      setIsGeneratingImage(false)
       
       const botMsgId = `bot-${Date.now()}`
       const botMsg: Message = {
@@ -145,15 +156,22 @@ export default function ChatWidget() {
         text: '', // Start empty for streaming
         sender: 'bot',
         timestamp: new Date(),
+        image: aiData.image || undefined,
+        imagePrompt: aiData.imagePrompt || undefined
       }
       setMessages(prev => [...prev, botMsg])
       
       setIsTyping(false)
-      await simulateStreaming(aiResponse, botMsgId)
-    } catch (error) {
+      await simulateStreaming(aiData.message, botMsgId)
+    } catch (error: any) {
+      console.error('Chat Error:', error)
+      const isQuotaError = error.message?.includes('429') || error.message?.toLowerCase().includes('kuota')
+      
       const errorMsg: Message = {
         id: `err-${Date.now()}`,
-        text: '⚠️ Maaf, sensor AI kami sedang mengalami kendala. Bisa coba tanya lagi nanti? 🙏',
+        text: isQuotaError 
+          ? '⚠️ Kuota chat AI hari ini sudah terpakai semua (Limit 20 request/hari). Faqih AI perlu istirahat sebentar, silakan coba lagi nanti atau besok ya! 🙏'
+          : '⚠️ Maaf, sensor AI kami sedang mengalami kendala teknis. Bisa coba tanya lagi nanti?',
         sender: 'bot',
         timestamp: new Date(),
       }
@@ -286,6 +304,62 @@ export default function ChatWidget() {
                           {msg.text}
                         </ReactMarkdown>
                       </div>
+
+                      {/* Generated Image */}
+                      {msg.image && (
+                        <div className="mt-3 space-y-2">
+                          <div className="relative group rounded-xl overflow-hidden border border-white/10 bg-black/20 aspect-square flex items-center justify-center">
+                            <img 
+                              src={msg.image} 
+                              alt={msg.imagePrompt || "Generated result"} 
+                              className="w-full h-full object-cover cursor-zoom-in hover:scale-[1.02] transition-transform duration-500"
+                              referrerPolicy="no-referrer"
+                              // Removed crossOrigin to avoid strict CORS checks on public images
+                              onError={(e) => {
+                                console.error('Image Load Error:', msg.image);
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const parent = target.parentElement;
+                                if (parent) {
+                                  const errorText = document.createElement('div');
+                                  errorText.className = 'text-[10px] text-white/40 p-4 text-center';
+                                  errorText.innerText = 'Gagal memuat gambar. Klik ikon zoom untuk mencoba buka manual.';
+                                  parent.appendChild(errorText);
+                                }
+                              }}
+                              onClick={() => window.open(msg.image, '_blank')}
+                            />
+                            <div className="absolute inset-4 top-auto flex items-center justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                              <button 
+                                onClick={async (e) => {
+                                  e.stopPropagation();
+                                  try {
+                                    const response = await fetch(msg.image!);
+                                    const blob = await response.blob();
+                                    const url = window.URL.createObjectURL(blob);
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.download = `faqih-ai-${Date.now()}.png`;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                    window.URL.revokeObjectURL(url);
+                                  } catch (error) {
+                                    window.open(msg.image, '_blank');
+                                  }
+                                }}
+                                className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/20 hover:bg-white/20 transition-colors shadow-xl"
+                                title="Download Image"
+                              >
+                                <Download className="w-4 h-4 text-white" />
+                              </button>
+                            </div>
+                          </div>
+                          <p className="text-[9px] text-white/40 italic px-1">
+                            Klik gambar untuk melihat ukuran penuh
+                          </p>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Bot Actions & Time Row - TIDY & PERSISTENT */}
@@ -327,11 +401,16 @@ export default function ChatWidget() {
               {isTyping && (
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] flex items-center justify-center">
-                    <div className="flex gap-1">
-                      <span className="w-1 h-1 bg-white/50 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                      <span className="w-1 h-1 bg-white/50 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                      <span className="w-1 h-1 bg-white/50 rounded-full animate-bounce" />
+                    <div className="flex gap-1.5 p-1">
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 bg-white/40 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">
+                      {isGeneratingImage ? 'Faqih AI sedang melukis...' : 'Faqih AI sedang mengetik...'}
+                    </span>
                   </div>
                 </div>
               )}
@@ -355,7 +434,7 @@ export default function ChatWidget() {
                   </div>
                 )}
                 
-                <div className="flex items-center gap-2 bg-[#0a0a0a] rounded-xl border border-[#2a2a2a] pl-4 pr-2 py-2 focus-within:border-white/20 transition-all">
+                <div className="flex items-center gap-2 bg-[#0a0a0a] rounded-xl border border-[#2a2a2a] pl-4 pr-2 py-2 transition-all">
                   <textarea
                     ref={textareaRef}
                     rows={1}
@@ -368,7 +447,7 @@ export default function ChatWidget() {
                       }
                     }}
                     placeholder="Tanya Faqih..."
-                    className="flex-1 bg-transparent border-none focus:ring-0 text-sm text-white py-2 resize-none max-h-[120px] scrollbar-none placeholder:text-white/20"
+                    className="flex-1 bg-transparent border-none focus:ring-0 focus:outline-none text-sm text-white py-2 resize-none max-h-[120px] scrollbar-none placeholder:text-white/20"
                   />
                   <button
                     onClick={() => handleSend()}
