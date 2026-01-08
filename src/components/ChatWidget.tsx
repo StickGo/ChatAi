@@ -167,7 +167,7 @@ export default function ChatWidget() {
       {/* Chat Window */}
       {isOpen && (
         <div 
-          className={`fixed bg-[#0a0a0a] shadow-2xl flex flex-col overflow-hidden border border-[#1a1a1a] z-50 animate-slideUp transition-all duration-300
+          className={`fixed bg-[#0a0a0a] shadow-2xl flex flex-col overflow-hidden border border-[#1a1a1a] z-[100] animate-slideUp transition-all duration-300
             ${isFullscreen 
               ? 'top-0 left-0 w-full h-full rounded-none' 
               : 'bottom-24 right-6 w-[380px] h-[550px] rounded-2xl'
@@ -300,7 +300,7 @@ export default function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:border-white/30 hover:shadow-white/10 transition-all group z-50"
+          className="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:border-white/30 hover:shadow-white/10 transition-all group z-[100]"
           aria-label="Open chat"
         >
           <div className="relative">

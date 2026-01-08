@@ -154,10 +154,10 @@ export default function Home() {
                     src="/images/profile5.jpg" 
                     alt="Agil Faqih Ijsam" 
                     fill 
-                    className="object-contain grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="object-contain md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
                   />
                   {/* Decorative Border */}
-                  <div className="absolute inset-0 border-4 border-white/10 group-hover:border-white/30 transition-colors duration-500" />
+                  <div className="absolute inset-0 border-4 border-white/20 md:border-white/10 md:group-hover:border-white/30 transition-colors duration-500" />
                   {/* Corner Accents */}
                   <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-white/50 -translate-x-2 -translate-y-2" />
                   <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-white/50 translate-x-2 translate-y-2" />
