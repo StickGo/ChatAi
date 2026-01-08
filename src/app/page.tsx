@@ -23,6 +23,7 @@ import {
 import ChatWidget from "@/components/ChatWidget";
 import TechMarquee from "@/components/TechMarquee";
 import SpotifyWidget from "@/components/SpotifyWidget";
+import BottomNav from "@/components/BottomNav";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
 
 export default function Home() {
@@ -60,7 +61,7 @@ export default function Home() {
       </div>
 
       {/* HERO SECTION */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden z-10">
+      <section id="home" className="relative h-screen flex flex-col justify-center items-center px-4 overflow-hidden z-10">
         
         {/* Hero Content */}
         <motion.div 
@@ -127,7 +128,7 @@ export default function Home() {
       <main className="relative z-20 max-w-6xl mx-auto px-6 pb-24 space-y-40">
         
         {/* IDENTITY SECTION - SPLIT LAYOUT WITH PHOTO */}
-        <section className="pt-20">
+        <section id="about" className="pt-20">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -194,7 +195,7 @@ export default function Home() {
         </section>
 
         {/* JOURNEY SECTION - STICKY AESTHETIC LAYOUT */}
-        <section className="relative">
+        <section id="journey" className="relative">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
              
              {/* Sticky Heading */}
@@ -247,7 +248,7 @@ export default function Home() {
         </section>
 
         {/* PROJECTS SECTION - TABBED CATEGORIES */}
-        <section>
+        <section id="projects">
           <motion.div
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
@@ -373,7 +374,7 @@ export default function Home() {
         </section>
 
         {/* CONTACT CTA SECTION */}
-        <section className="py-20 border-t border-b border-white/5 relative overflow-hidden">
+        <section id="contact" className="py-20 border-t border-b border-white/5 relative overflow-hidden">
            <div className="absolute inset-0 bg-[var(--color-dark)]/30" />
            <motion.div 
              initial={{ opacity: 0, y: 20 }}
@@ -402,6 +403,7 @@ export default function Home() {
       
       <ChatWidget />
       <SpotifyWidget />
+      <BottomNav />
 
       {/* FOOTER */}
       <footer className="relative z-20 border-t border-white/5 py-12 text-center text-white/20 text-xs font-mono uppercase tracking-widest">
