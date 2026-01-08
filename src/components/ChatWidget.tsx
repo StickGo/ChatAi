@@ -300,7 +300,7 @@ export default function ChatWidget() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:border-white/30 hover:shadow-white/10 transition-all group z-50"
+          className="fixed bottom-24 md:bottom-6 right-6 flex items-center gap-3 px-4 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:border-white/30 hover:shadow-white/10 transition-all group z-50"
           aria-label="Open chat"
         >
           <div className="relative">

@@ -4,6 +4,7 @@ export const PORTFOLIO_DATA = {
     // Narrative Bio
     bio: "Halo, saya Agil. Seorang siswa SMK Telkom Makassar jurusan Rekayasa Perangkat Lunak yang memiliki ketertarikan mendalam pada teknologi dan seni. Saya percaya bahwa kode dan nada adalah bahasa universal yang bisa menciptakan sesuatu yang luar biasa. Fokus pengembangan saya saat ini meliputi Game Development, Web Engineering, dan Mobile Apps. Selain koding, saya aktif memproduksi musik elektronik sebagai bentuk ekspresi kreatif saya.",
     email: "faqihatun26@gmail.com",
+    location: "Bandung, Indonesia",
     social: {
       github: "https://github.com/StickGo",
       linkedin: "https://linkedin.com/in/agilfaqih",

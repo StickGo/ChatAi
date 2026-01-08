@@ -438,6 +438,10 @@ export default function Home() {
              <h2 className="text-4xl md:text-6xl font-bold font-heading mb-6 text-white">Let's Create Together</h2>
              <p className="text-white/60 mb-8 text-lg font-light">
                Tertarik berkolaborasi dalam proyek Game, Web, atau Musik? Jangan ragu untuk menghubungi saya.
+               <br />
+               <span className="text-[var(--color-medium)] font-mono text-sm mt-4 block tracking-widest uppercase">
+                 Domisili: Bandung, Indonesia 📍
+               </span>
              </p>
              <a 
                href="https://wa.me/6282124822008"

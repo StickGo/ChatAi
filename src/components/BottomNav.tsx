@@ -54,7 +54,7 @@ export default function BottomNav() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl pointer-events-auto"
+        className="flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl pointer-events-auto"
       >
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
@@ -64,7 +64,7 @@ export default function BottomNav() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`relative p-3 rounded-full transition-all duration-300 group ${
+              className={`relative p-2 md:p-3 rounded-full transition-all duration-300 group ${
                 isActive ? "text-white" : "text-white/40 hover:text-white/70"
               }`}
             >
