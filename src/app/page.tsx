@@ -48,7 +48,7 @@ export default function Home() {
 
       {/* HERO BACKGROUND - COLLAGE OF USER PHOTOS */}
       <div className="fixed inset-0 z-0">
-         <div className="absolute inset-0 grid grid-cols-3 opacity-80">
+         <div className="absolute inset-0 grid grid-cols-3 opacity-100">
             <div className="relative h-full w-full">
                <Image 
                  src="/images/user_music_1.jpg" 
@@ -83,7 +83,7 @@ export default function Home() {
                />
             </div>
          </div>
-         <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
+         <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
          <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/60 to-transparent" />
       </div>
 
@@ -122,11 +122,10 @@ export default function Home() {
                  rel="noopener noreferrer" 
                  className="group flex flex-col items-center gap-2 text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors"
                  aria-label="GitHub Profile"
-                >
+               >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Github className="w-5 h-5" />
                  </div>
-                 <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">Github</span>
                </a>
                <a 
                  href={PORTFOLIO_DATA.identity.social.instagram} 
@@ -134,21 +133,19 @@ export default function Home() {
                  rel="noopener noreferrer" 
                  className="group flex flex-col items-center gap-2 text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors"
                  aria-label="Instagram Profile"
-                >
+               >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Instagram className="w-5 h-5" />
                  </div>
-                 <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">Instagram</span>
                </a>
                <a 
                  href={`mailto:${PORTFOLIO_DATA.identity.email}`} 
                  className="group flex flex-col items-center gap-2 text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors"
                  aria-label="Email Contact"
-                >
+               >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Mail className="w-5 h-5" />
                  </div>
-                 <span className="text-[10px] uppercase tracking-widest text-[var(--foreground)]/80 group-hover:text-[var(--foreground)] transition-opacity duration-300">Email</span>
                </a>
             </div>
 
