@@ -21,11 +21,13 @@ import {
   GraduationCap,
   MapPin
 } from "lucide-react";
-import ChatWidget from "@/components/ChatWidget";
-import TechMarquee from "@/components/TechMarquee";
-import SpotifyWidget from "@/components/SpotifyWidget";
+import dynamic from 'next/dynamic';
 import BottomNav from "@/components/BottomNav";
 import { PORTFOLIO_DATA } from "@/data/portfolio";
+
+const ChatWidget = dynamic(() => import('@/components/ChatWidget'), { ssr: false });
+const SpotifyWidget = dynamic(() => import('@/components/SpotifyWidget'), { ssr: false });
+const TechMarquee = dynamic(() => import('@/components/TechMarquee'));
 
 export default function Home() {
   const { scrollY } = useScroll();
@@ -48,13 +50,34 @@ export default function Home() {
       <div className="fixed inset-0 z-0">
          <div className="absolute inset-0 grid grid-cols-3 opacity-80">
             <div className="relative h-full w-full">
-               <Image src="/images/user_music_1.jpg" alt="Music Stage" fill className="object-cover grayscale" />
+               <Image 
+                 src="/images/user_music_1.jpg" 
+                 alt="Music Stage" 
+                 fill 
+                 priority
+                 sizes="(max-width: 768px) 33vw, 33vw"
+                 className="object-cover grayscale" 
+               />
             </div>
             <div className="relative h-full w-full">
-               <Image src="/images/user_music_2.jpg" alt="Guitar Solo" fill className="object-cover grayscale" />
+               <Image 
+                 src="/images/user_music_2.jpg" 
+                 alt="Guitar Solo" 
+                 fill 
+                 priority
+                 sizes="(max-width: 768px) 33vw, 33vw"
+                 className="object-cover grayscale" 
+               />
             </div>
             <div className="relative h-full w-full">
-               <Image src="/images/user_music_3.jpg" alt="Band Perform" fill className="object-cover grayscale" />
+               <Image 
+                 src="/images/user_music_3.jpg" 
+                 alt="Band Perform" 
+                 fill 
+                 priority
+                 sizes="(max-width: 768px) 33vw, 33vw"
+                 className="object-cover grayscale" 
+               />
             </div>
          </div>
          <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
@@ -90,19 +113,35 @@ export default function Home() {
 
             {/* SOCIALS - Minimalist &Centered */}
             <div className="flex justify-center gap-8 mt-12">
-               <a href={PORTFOLIO_DATA.identity.social.github} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors">
+               <a 
+                 href={PORTFOLIO_DATA.identity.social.github} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors"
+                 aria-label="GitHub Profile"
+                >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Github className="w-5 h-5" />
                  </div>
                  <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">Github</span>
                </a>
-               <a href={PORTFOLIO_DATA.identity.social.instagram} target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors">
+               <a 
+                 href={PORTFOLIO_DATA.identity.social.instagram} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors"
+                 aria-label="Instagram Profile"
+                >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Instagram className="w-5 h-5" />
                  </div>
                  <span className="text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">Instagram</span>
                </a>
-               <a href={`mailto:${PORTFOLIO_DATA.identity.email}`} className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors">
+               <a 
+                 href={`mailto:${PORTFOLIO_DATA.identity.email}`} 
+                 className="group flex flex-col items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors"
+                 aria-label="Email Contact"
+                >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Mail className="w-5 h-5" />
                  </div>
@@ -154,6 +193,7 @@ export default function Home() {
                     src="/images/profile5.jpg" 
                     alt="Agil Faqih Ijsam" 
                     fill 
+                    sizes="(max-width: 768px) 100vw, 40vw"
                     className="object-contain grayscale md:group-hover:grayscale-0 transition-all duration-700"
                   />
                   {/* Decorative Border */}
@@ -307,6 +347,7 @@ export default function Home() {
                       src={project.image} 
                       alt={project.title} 
                       fill 
+                      sizes="(max-width: 768px) 100vw, 50vw"
                       className="object-cover opacity-100 md:opacity-50 md:group-hover:opacity-100 transition-all duration-1000 md:grayscale md:group-hover:grayscale-0 md:group-hover:scale-105" 
                     />
                     

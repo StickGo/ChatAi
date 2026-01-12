@@ -54,6 +54,7 @@ export default function TechMarquee() {
             <div 
               key={index} 
               className="flex items-center gap-3 text-white/40 hover:text-white/80 transition-colors group cursor-default"
+              aria-hidden={index >= SKILLS.length ? "true" : "false"}
             >
               <skill.icon className="w-5 h-5 sm:w-6 sm:h-6 group-hover:text-[var(--color-medium)] transition-colors" />
               <span className="text-lg sm:text-lg font-mono tracking-widest uppercase whitespace-nowrap">

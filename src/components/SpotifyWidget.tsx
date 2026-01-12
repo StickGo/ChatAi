@@ -28,6 +28,7 @@ export default function SpotifyWidget() {
               <button 
                 onClick={() => setIsOpen(false)}
                 className="p-1 hover:bg-white/10 rounded-full transition-colors text-white/50 hover:text-white"
+                aria-label="Minimize Spotify Player"
               >
                 <Minimize2 className="w-4 h-4" />
               </button>
@@ -54,6 +55,7 @@ export default function SpotifyWidget() {
             onClick={() => setIsOpen(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            aria-label="Open Spotify Player"
             className="flex items-center gap-3 px-4 py-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-full shadow-lg hover:border-[#1DB954]/50 hover:shadow-[#1DB954]/20 transition-all group"
           >
             <div className="relative">
