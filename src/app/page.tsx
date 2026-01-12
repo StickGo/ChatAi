@@ -55,7 +55,7 @@ export default function Home() {
                  alt="Music Stage" 
                  fill 
                  priority
-                 quality={50}
+                 quality={25}
                  sizes="(max-width: 768px) 33vw, 33vw"
                  className="object-cover grayscale" 
                />
@@ -66,7 +66,7 @@ export default function Home() {
                  alt="Guitar Solo" 
                  fill 
                  priority
-                 quality={50}
+                 quality={25}
                  sizes="(max-width: 768px) 33vw, 33vw"
                  className="object-cover grayscale" 
                />
@@ -77,7 +77,7 @@ export default function Home() {
                  alt="Band Perform" 
                  fill 
                  priority
-                 quality={50}
+                 quality={25}
                  sizes="(max-width: 768px) 33vw, 33vw"
                  className="object-cover grayscale" 
                />
