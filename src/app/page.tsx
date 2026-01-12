@@ -19,7 +19,8 @@ import {
   Globe,
   Award,
   GraduationCap,
-  MapPin
+  MapPin,
+  Linkedin
 } from "lucide-react";
 import dynamic from 'next/dynamic';
 import BottomNav from "@/components/BottomNav";
@@ -55,9 +56,9 @@ export default function Home() {
                  alt="Music Stage" 
                  fill 
                  priority
-                 quality={25}
-                 sizes="(max-width: 768px) 33vw, 33vw"
-                 className="object-cover grayscale" 
+                 quality={75}
+                 sizes="33vw"
+                 className="object-cover" 
                />
             </div>
             <div className="relative h-full w-full">
@@ -66,9 +67,9 @@ export default function Home() {
                  alt="Guitar Solo" 
                  fill 
                  priority
-                 quality={25}
-                 sizes="(max-width: 768px) 33vw, 33vw"
-                 className="object-cover grayscale" 
+                 quality={75}
+                 sizes="33vw"
+                 className="object-cover" 
                />
             </div>
             <div className="relative h-full w-full">
@@ -77,14 +78,14 @@ export default function Home() {
                  alt="Band Perform" 
                  fill 
                  priority
-                 quality={25}
-                 sizes="(max-width: 768px) 33vw, 33vw"
-                 className="object-cover grayscale" 
+                 quality={75}
+                 sizes="33vw"
+                 className="object-cover" 
                />
             </div>
          </div>
-         <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
-         <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/60 to-transparent" />
+         <div className="absolute inset-0 bg-black/[0.75] mix-blend-multiply" />
+         <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] to-transparent opacity-80" />
       </div>
 
       {/* HERO SECTION */}
@@ -125,6 +126,17 @@ export default function Home() {
                >
                  <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
                     <Github className="w-5 h-5" />
+                 </div>
+               </a>
+               <a 
+                 href={PORTFOLIO_DATA.identity.social.linkedin} 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 className="group flex flex-col items-center gap-2 text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors"
+                 aria-label="LinkedIn Profile"
+               >
+                 <div className="p-3 rounded-full border border-[var(--foreground)]/10 group-hover:border-[var(--foreground)]/50 group-hover:scale-110 transition-all duration-300">
+                    <Linkedin className="w-5 h-5" />
                  </div>
                </a>
                <a 

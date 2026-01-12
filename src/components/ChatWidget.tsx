@@ -300,6 +300,7 @@ export default function ChatWidget() {
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                         fill
                         sizes="(max-width: 768px) 50vw, 33vw"
+                        unoptimized
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Maximize2 className="w-6 h-6 text-white" />
@@ -344,6 +345,7 @@ export default function ChatWidget() {
                       height={1024}
                       className="max-h-[70vh] w-auto rounded-xl shadow-2xl border border-white/10"
                       style={{ objectFit: 'contain' }}
+                      unoptimized
                     />
                     <div className="text-center space-y-2">
                       <p className="text-white font-medium text-sm px-4">{lightboxImage.prompt}</p>
@@ -432,6 +434,7 @@ export default function ChatWidget() {
                               className="object-cover cursor-zoom-in hover:scale-[1.02] transition-transform duration-500"
                               fill
                               sizes="(max-width: 768px) 100vw, 400px"
+                              unoptimized
                               referrerPolicy="no-referrer"
                               // Removed crossOrigin to avoid strict CORS checks on public images
                               onError={(e) => {

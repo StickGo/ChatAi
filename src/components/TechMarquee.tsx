@@ -51,7 +51,7 @@ export default function TechMarquee() {
         >
           {/* Duplicate list 3 times to ensure seamless loop on wide screens */}
           {[...SKILLS, ...SKILLS, ...SKILLS].map((skill, index) => (
-            <div className="flex items-center gap-3 text-white/80 hover:text-white transition-colors group cursor-default"
+            <div key={index} className="flex items-center gap-3 text-white/80 hover:text-white transition-colors group cursor-default"
               aria-hidden={index >= SKILLS.length ? "true" : "false"}
             >
               <skill.icon className="w-5 h-5 sm:w-6 sm:h-6 group-hover:text-[var(--color-medium)] transition-colors" />

@@ -7,7 +7,7 @@ export const PORTFOLIO_DATA = {
     location: "Bandung, Indonesia",
     social: {
       github: "https://github.com/StickGo",
-      linkedin: "https://linkedin.com/in/agilfaqih",
+      linkedin: "https://www.linkedin.com/in/agil-faqih-ijsam-4866613a1",
       instagram: "https://instagram.com/ijsamagilfaqih"
     }
   },
