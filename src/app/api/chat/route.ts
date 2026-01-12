@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     try {
       // --- LAYER 2: Primary Gemini AI with Tools ---
       const geminiResponse = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.5-flash',
         contents: [
           { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
           { role: 'model', parts: [{ text: 'Baik, saya asisten Faqih Bot. Saya paham instruksi Anda, termasuk band favorit Faqih dan kemampuan saya membuat gambar.' }] },
