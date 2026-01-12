@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   title: "Agil Faqih Ijsam | Portfolio",
   description: "Portfolio of Agil Faqih Ijsam - Game, Web, App Developer & Music Producer",
   keywords: ['web developer', 'next.js', 'react', 'portfolio', 'game developer', 'music producer'],
+  metadataBase: new URL('https://your-site.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     url: 'https://your-site.vercel.app',
