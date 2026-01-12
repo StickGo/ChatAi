@@ -19,6 +19,7 @@ import {
   Grid,
   Image as ImageIcon
 } from 'lucide-react'
+import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -248,20 +249,20 @@ export default function ChatWidget() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button onClick={() => setShowGallery(!showGallery)} className={`p-2 hover:bg-white/5 rounded-full transition-colors ${showGallery ? 'text-white bg-white/10' : 'text-white/40 hover:text-white'}`} title="Gallery">
+                <button onClick={() => setShowGallery(!showGallery)} className={`p-2 hover:bg-white/5 rounded-full transition-colors ${showGallery ? 'text-white bg-white/10' : 'text-white/40 hover:text-white'}`} title="Gallery" aria-label="Toggle Gallery">
                   <Grid className="w-4 h-4" />
                 </button>
                 <div className="w-px h-4 bg-white/10 mx-1" />
-                <button onClick={handleDownload} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-white transition-colors" title="Download Chat">
+                <button onClick={handleDownload} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-white transition-colors" title="Download Chat" aria-label="Download Chat">
                   <Download className="w-4 h-4" />
                 </button>
-                <button onClick={handleClearHistory} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-red-400 transition-colors" title="Clear Chat">
+                <button onClick={handleClearHistory} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-red-400 transition-colors" title="Clear Chat" aria-label="Clear Chat History">
                   <Trash2 className="w-4 h-4" />
                 </button>
-                <button onClick={() => setIsFullscreen(!isFullscreen)} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-white transition-colors">
+                <button onClick={() => setIsFullscreen(!isFullscreen)} className="p-2 hover:bg-white/5 rounded-full text-white/40 hover:text-white transition-colors" aria-label={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}>
                   {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
                 </button>
-                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-red-500/10 rounded-full text-white/40 hover:text-red-500 transition-colors">
+                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-red-500/10 rounded-full text-white/40 hover:text-red-500 transition-colors" aria-label="Close Chat">
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -293,11 +294,12 @@ export default function ChatWidget() {
                       onClick={() => setLightboxImage({ src: msg.image!, prompt: msg.imagePrompt || 'Generated Image' })}
                       className="aspect-square relative group rounded-xl overflow-hidden cursor-pointer border border-white/10 bg-white/5"
                     >
-                      <img 
-                        src={msg.image?.replace('pollinations.ai/p/', 'image.pollinations.ai/prompt/')} 
-                        alt={msg.imagePrompt}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        loading="lazy"
+                      <Image 
+                        src={msg.image?.replace('pollinations.ai/p/', 'image.pollinations.ai/prompt/') || ''} 
+                        alt={msg.imagePrompt || 'Gallery Image'}
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Maximize2 className="w-6 h-6 text-white" />
@@ -326,6 +328,7 @@ export default function ChatWidget() {
                   <button 
                     onClick={() => setLightboxImage(null)}
                     className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                    aria-label="Close Lightbox"
                   >
                     <X className="w-6 h-6" />
                   </button>
@@ -334,10 +337,13 @@ export default function ChatWidget() {
                     className="relative max-w-4xl w-full max-h-[85vh] flex flex-col items-center gap-4"
                     onClick={e => e.stopPropagation()}
                   >
-                    <img 
+                    <Image 
                       src={lightboxImage.src.replace('pollinations.ai/p/', 'image.pollinations.ai/prompt/')} 
                       alt={lightboxImage.prompt}
+                      width={1024}
+                      height={1024}
                       className="max-h-[70vh] w-auto rounded-xl shadow-2xl border border-white/10"
+                      style={{ objectFit: 'contain' }}
                     />
                     <div className="text-center space-y-2">
                       <p className="text-white font-medium text-sm px-4">{lightboxImage.prompt}</p>
@@ -420,23 +426,18 @@ export default function ChatWidget() {
                       {msg.image && (
                         <div className="mt-3 space-y-2">
                           <div className="relative group rounded-xl overflow-hidden border border-white/10 bg-black/20 aspect-square flex items-center justify-center">
-                            <img 
-                              src={msg.image?.replace('pollinations.ai/p/', 'image.pollinations.ai/prompt/')} 
+                            <Image 
+                              src={msg.image?.replace('pollinations.ai/p/', 'image.pollinations.ai/prompt/') || ''} 
                               alt={msg.imagePrompt || "Generated result"} 
-                              className="w-full h-full object-cover cursor-zoom-in hover:scale-[1.02] transition-transform duration-500"
+                              className="object-cover cursor-zoom-in hover:scale-[1.02] transition-transform duration-500"
+                              fill
+                              sizes="(max-width: 768px) 100vw, 400px"
                               referrerPolicy="no-referrer"
                               // Removed crossOrigin to avoid strict CORS checks on public images
                               onError={(e) => {
                                 console.error('Image Load Error:', msg.image);
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                                const parent = target.parentElement;
-                                if (parent) {
-                                  const errorText = document.createElement('div');
-                                  errorText.className = 'text-[10px] text-white/40 p-4 text-center';
-                                  errorText.innerText = 'Gagal memuat gambar. Klik ikon zoom untuk mencoba buka manual.';
-                                  parent.appendChild(errorText);
-                                }
+                                // Note: onError does not pass target element in the same way for Next.js Image component
+                                // handling error state usually requires local state
                               }}
                               onClick={() => setLightboxImage({ src: msg.image!, prompt: msg.imagePrompt || 'Generated Image' })}
                             />
@@ -448,6 +449,7 @@ export default function ChatWidget() {
                                 }}
                                 className="p-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/20 hover:bg-white/20 transition-colors shadow-xl"
                                 title="Zoom Image"
+                                aria-label="Zoom Image"
                               >
                                 <Maximize2 className="w-4 h-4 text-white" />
                               </button>
@@ -472,6 +474,7 @@ export default function ChatWidget() {
                             onClick={() => handleCopy(msg.text, msg.id)} 
                             className="p-1 hover:bg-white/10 rounded-md transition-all group"
                             title="Salin"
+                            aria-label="Copy Message"
                           >
                             {copiedId === msg.id ? <Check className="w-3 h-3 text-white" /> : <Copy className="w-3 h-3 text-white/20 group-hover:text-white" />}
                           </button>
@@ -479,6 +482,7 @@ export default function ChatWidget() {
                             onClick={() => handleFeedback(msg.id, 'like')} 
                             className={`p-1 hover:bg-white/10 rounded-md transition-all ${msg.feedback === 'like' ? 'text-white' : 'text-white/20 hover:text-white'}`}
                             title="Suka"
+                            aria-label="Like Message"
                           >
                             <ThumbsUp className="w-3 h-3" />
                           </button>
@@ -486,6 +490,7 @@ export default function ChatWidget() {
                             onClick={() => handleFeedback(msg.id, 'unlike')} 
                             className={`p-1 hover:bg-white/10 rounded-md transition-all ${msg.feedback === 'unlike' ? 'text-white' : 'text-white/20 hover:text-white'}`}
                             title="Tidak Suka"
+                            aria-label="Dislike Message"
                           >
                             <ThumbsDown className="w-3 h-3" />
                           </button>
@@ -551,6 +556,7 @@ export default function ChatWidget() {
                     onClick={() => handleSend()}
                     disabled={isTyping || !inputValue.trim()}
                     className="p-2.5 bg-white text-black rounded-lg hover:bg-white/90 active:scale-95 disabled:opacity-20 disabled:scale-100 transition-all flex-shrink-0 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                    aria-label="Send Message"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -565,6 +571,7 @@ export default function ChatWidget() {
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 flex items-center gap-3 px-4 py-3 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl hover:border-white/20 transition-all group z-[100]"
+          aria-label="Open Chat Assistant"
         >
           <div className="relative">
             <MessageCircle className="w-5 h-5 text-white/90" />

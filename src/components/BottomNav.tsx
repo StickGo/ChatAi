@@ -64,6 +64,7 @@ export default function BottomNav() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
+              aria-label={item.label}
               className={`relative p-2 md:p-3 rounded-full transition-all duration-300 group ${
                 isActive ? "text-white" : "text-white/40 hover:text-white/70"
               }`}

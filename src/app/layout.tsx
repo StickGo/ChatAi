@@ -1,20 +1,28 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import StructuredData from "@/components/StructuredData";
+import { Metadata } from 'next';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"], display: 'swap' });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata = {
+export const metadata: Metadata = {
   title: "Agil Faqih Ijsam | Portfolio",
   description: "Portfolio of Agil Faqih Ijsam - Game, Web, App Developer & Music Producer",
+  keywords: ['web developer', 'next.js', 'react', 'portfolio', 'game developer', 'music producer'],
+  openGraph: {
+    type: 'website',
+    url: 'https://your-site.vercel.app',
+    title: "Agil Faqih Ijsam | Portfolio",
+    description: "Portfolio personal Agil Faqih Ijsam - Game, Web, App Developer & Music Producer",
+    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Agil Faqih Ijsam | Portfolio",
+    images: ['/opengraph-image'],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -24,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -32,6 +40,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <StructuredData />
           </ThemeProvider>
       </body>
     </html>
