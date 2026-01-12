@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
@@ -14,11 +14,6 @@ import {
   Music, 
   Instagram,
   User,
-  Briefcase,
-  Smartphone,
-  Globe,
-  Award,
-  GraduationCap,
   MapPin,
   Linkedin
 } from "lucide-react";
@@ -41,7 +36,7 @@ export default function Home() {
 
   const filteredProjects = activeTab === "All" 
     ? PORTFOLIO_DATA.projects 
-    : PORTFOLIO_DATA.projects.filter((p: any) => p.category === activeTab);
+    : PORTFOLIO_DATA.projects.filter((p: { category: string }) => p.category === activeTab);
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans selection:bg-[var(--color-medium)] selection:text-white transition-colors duration-300">
@@ -259,7 +254,7 @@ export default function Home() {
                   </h2>
                   <div className="hidden md:block w-full h-[1px] bg-[var(--foreground)]/20 my-6" />
                    <p className="text-zinc-400 italic text-sm">
-                     "Every step is a lesson, every milestone a memory."
+                     &quot;Every step is a lesson, every milestone a memory.&quot;
                    </p>
                 </div>
              </div>
@@ -274,7 +269,7 @@ export default function Home() {
                   />
                 </div>
 
-                {PORTFOLIO_DATA.journey.map((item: any, index: number) => (
+                {PORTFOLIO_DATA.journey.map((item: { date: string; role: string; company: string; description: string }, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: 20 }}
@@ -344,7 +339,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project: any, index: number) => (
+              {filteredProjects.map((project: { title: string; slug: string; image: string; category: string; description: string }, index: number) => (
                 <motion.div
                   key={project.title}
                   layout
@@ -408,7 +403,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {PORTFOLIO_DATA.services.map((service: any, index: number) => (
+            {PORTFOLIO_DATA.services.map((service: { title: string; description: string; icon: string }, index: number) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -453,7 +448,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-             {PORTFOLIO_DATA.testimonials.map((testimoni: any, index: number) => (
+             {PORTFOLIO_DATA.testimonials.map((testimoni: { name: string; role: string; quote: string }, index: number) => (
                <motion.div 
                  key={index}
                  initial={{ opacity: 0, y: 20 }}
@@ -489,7 +484,7 @@ export default function Home() {
              viewport={{ once: true }}
              className="relative z-10 text-center max-w-2xl mx-auto px-4"
            >
-             <h2 className="text-4xl md:text-6xl font-bold font-heading mb-6 text-white">Let's Create Together</h2>
+             <h2 className="text-4xl md:text-6xl font-bold font-heading mb-6 text-white">Let&apos;s Create Together</h2>
                <div className="flex flex-col items-center gap-12 mt-12">
                 <p className="text-zinc-200 text-lg font-light max-w-lg mx-auto">
                   Tertarik berkolaborasi dalam proyek Game, Web, atau Musik? Jangan ragu untuk menghubungi saya.

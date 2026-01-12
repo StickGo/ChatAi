@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
       if (functionCalls && functionCalls.length > 0) {
         const call = functionCalls[0]
         if (call.name === 'generate_image') {
-          const imagePrompt = (call.args as any).prompt
+          const imagePrompt = (call.args as { prompt: string }).prompt
           const imageData = await generateImage(imagePrompt)
           if (imageData) {
             return NextResponse.json({
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({ success: true, message: geminiResponse.text })
 
-    } catch (geminiError: any) {
+    } catch (geminiError: unknown) {
       console.error('Gemini Failure, switching to Pollinations Text Fallback...', geminiError)
       
       // --- LAYER 3: Pollinations Text Fallback (Ensures 100% Uptime via POST) ---
@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
         )
       }
     }
-  } catch (error: any) {
+  } catch {
     return NextResponse.json({ error: 'System Error' }, { status: 500 })
   }
 }

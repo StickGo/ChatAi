@@ -59,7 +59,7 @@ export default function ChatWidget() {
     if (savedMessages) {
       try {
         const parsed = JSON.parse(savedMessages)
-        setMessages(parsed.map((msg: any) => ({
+        setMessages(parsed.map((msg: Message) => ({
           ...msg,
           timestamp: new Date(msg.timestamp)
         })))
@@ -168,9 +168,10 @@ export default function ChatWidget() {
       
       setIsTyping(false)
       await simulateStreaming(aiData.message, botMsgId)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Chat Error:', error)
-      const isQuotaError = error.message?.includes('429') || error.message?.toLowerCase().includes('kuota')
+      const errorMessage = error instanceof Error ? error.message : ''
+      const isQuotaError = errorMessage.includes('429') || errorMessage.toLowerCase().includes('kuota')
       
       const errorMsg: Message = {
         id: `err-${Date.now()}`,
@@ -363,7 +364,7 @@ export default function ChatWidget() {
                             link.click()
                             document.body.removeChild(link)
                             window.URL.revokeObjectURL(url)
-                          } catch (e) {
+                          } catch {
                             window.open(lightboxImage.src, '_blank')
                           }
                         }}
@@ -437,7 +438,7 @@ export default function ChatWidget() {
                               unoptimized
                               referrerPolicy="no-referrer"
                               // Removed crossOrigin to avoid strict CORS checks on public images
-                              onError={(e) => {
+                              onError={() => {
                                 console.error('Image Load Error:', msg.image);
                                 // handling error state usually requires local state
                               }}

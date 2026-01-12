@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Music2, X, Minimize2, Maximize2 } from "lucide-react";
+import { Music2, Minimize2 } from "lucide-react";
 
 export default function SpotifyWidget() {
   const [isOpen, setIsOpen] = useState(false);

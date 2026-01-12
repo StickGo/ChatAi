@@ -1,0 +1,42 @@
+
+> my-first-nextjs@0.1.0 lint
+> eslint
+
+
+D:\PKL BANDUNG ASHARI TECH\task 3\my-first-nextjs\src\app\api\chat\route.ts
+  131:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  146:27  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  178:12  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  178:19  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\PKL BANDUNG ASHARI TECH\task 3\my-first-nextjs\src\app\page.tsx
+    3:20  warning  'useRef' is defined but never used                               @typescript-eslint/no-unused-vars
+   17:3   warning  'Briefcase' is defined but never used                            @typescript-eslint/no-unused-vars
+   18:3   warning  'Smartphone' is defined but never used                           @typescript-eslint/no-unused-vars
+   19:3   warning  'Globe' is defined but never used                                @typescript-eslint/no-unused-vars
+   20:3   warning  'Award' is defined but never used                                @typescript-eslint/no-unused-vars
+   21:3   warning  'GraduationCap' is defined but never used                        @typescript-eslint/no-unused-vars
+   44:42  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  262:22  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  262:72  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  277:52  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  347:47  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  411:52  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  456:59  error    Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  492:93  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+D:\PKL BANDUNG ASHARI TECH\task 3\my-first-nextjs\src\components\BottomNav.tsx
+  5:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\PKL BANDUNG ASHARI TECH\task 3\my-first-nextjs\src\components\ChatWidget.tsx
+   62:38  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  171:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  366:36  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  440:41  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+
+D:\PKL BANDUNG ASHARI TECH\task 3\my-first-nextjs\src\components\SpotifyWidget.tsx
+  5:18  warning  'X' is defined but never used          @typescript-eslint/no-unused-vars
+  5:32  warning  'Maximize2' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 25 problems (13 errors, 12 warnings)
+
