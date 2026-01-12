@@ -16,7 +16,9 @@ const nextConfig: NextConfig = {
         hostname: "image.pollinations.ai",
       },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
+  compress: true,
 };
 
 export default nextConfig;
